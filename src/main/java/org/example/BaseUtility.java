@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class BaseUtility {
@@ -95,7 +96,16 @@ public class BaseUtility {
             test.info("Response status code: " + response.getStatusCode());
 
             // Flatten the JSON response to a map
-            Map<String, Object> actualValues = JsonFlattener.flattenAsMap(response.getBody().asString());
+            Map<String, Object> actualValuesRaw = JsonFlattener.flattenAsMap(response.getBody().asString());
+
+            // Remove square brackets from the map
+            Map<String, Object> actualValues = actualValuesRaw.entrySet().stream()
+                    .collect(Collectors.toMap(
+                            e -> e.getKey().replaceAll("\\[\"|\"\\]", ""), // Replace occurrences of [" and "] with empty string
+                            Map.Entry::getValue,
+                            (oldValue, newValue) -> oldValue, // In case of key collision, keep the old value
+                            HashMap::new // Supplier, gives a new destination map
+                    ));
 
             // Get expected values from CSV
             Map<String, String> expectedValues = new HashMap<>();
