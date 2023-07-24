@@ -14,7 +14,7 @@ It reads test data from CSV files and converts them to JSON for API requests. Th
 
 # Running the tests
 1. Compile the project using Maven:
-2. Check for any Errors
+2. python
 3. Copy code
 4. mvn compile
 5. Run the tests using the TestNG runner:
