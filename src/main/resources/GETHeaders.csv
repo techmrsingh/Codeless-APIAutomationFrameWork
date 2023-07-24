@@ -1,0 +1,2 @@
+testcasename,header_Key1,header_Value1,header_Key2,header_Value2,expected_name,expected_username,expected_email,expected_address.city,expected_address.geo.lat,expected_company.bs,expected_statuscode
+getRequestTestcasewithHeaders,Accept,application/json,Content-Type,application/json,Leanne Graham,Bret,Sincere@april.biz,Gwenborough,-37.3159,harness real-time e-markets,200

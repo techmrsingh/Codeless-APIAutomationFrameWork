@@ -1,0 +1,3 @@
+testcasename,name,age,city,expected_statuscode
+simple test 1,John,25,New York,200
+simple test 2,Doe,30,Los Angeles,200

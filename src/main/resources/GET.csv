@@ -1,0 +1,2 @@
+testcasename,expected_name,expected_username,expected_email,expected_address.city,expected_address.geo.lat,expected_company.bs,expected_statuscode
+GetRequestWithoutHeaders,Leanne Graham,Bret,Sincere@april.biz,Gwenborough,-37.3159,harness real-time e-markets,200
