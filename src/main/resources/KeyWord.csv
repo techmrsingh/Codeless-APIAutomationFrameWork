@@ -1,3 +1,3 @@
-testcasename,input_name,input_age,input_city,expected_statuscode,input_dummy
-simple test 1,John,25,New York,201
-simple test 2,prev_name,random_,Los Angeles,201
+header_contentType,testcasename,input_name,input_age,input_city,expected_statuscode,input_dummy
+application/json,simple test 1,John,25,New York,201
+application/json,simple test 2,prev_name,random_,Los Angeles,201

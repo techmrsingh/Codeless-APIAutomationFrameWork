@@ -11,6 +11,7 @@ import io.restassured.specification.RequestSpecification;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.example.Reporting;
+import org.example.regExCsvUtil;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.asserts.SoftAssert;
@@ -20,13 +21,21 @@ import java.io.IOException;
 import java.io.Reader;
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.example.Reporting.*;
 
 
+
 public class ApiTestUtility {
+
+    public String generate12DigitNumber() {
+        long timestamp = Instant.now().toEpochMilli();
+        String strTimestamp = String.valueOf(timestamp);
+        return strTimestamp.substring(1);
+    }
     public static SoftAssert softAssert = new SoftAssert();
     private static ExtentReports extent = new ExtentReports();
     private ExtentTest test;
@@ -66,7 +75,11 @@ public class ApiTestUtility {
                         value = (String) previousRequestData.get(key);
                     }
                     if (value.equals("random_")) {
-                        value = new BigInteger(130, random).toString(10).substring(0, 16);
+                        value = generate12DigitNumber();
+                    }else if(value.equals("isString")){
+                        value = regExCsvUtil.isString(value) ? "true" : "false";
+                    }else if(value.equals("isNumber")){
+                        value = regExCsvUtil.isNumber(value) ? "true" : "false";
                     }
                     requestBody.put(header.replace("input_", ""), value);
                 } else if (header.startsWith("header_")) {
@@ -82,6 +95,7 @@ public class ApiTestUtility {
             Response response;
             if (method == HttpMethod.POST) {
                 test.info("Making POST request to: " + url);
+                test.info("headers are : " + headers);
                 test.info("Request body: " + requestBody);
                 response = request.when().post(url).then().log().all().extract().response();
                 int expectedStatusCode = Integer.parseInt(record.get("expected_statuscode"));
