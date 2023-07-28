@@ -3,6 +3,49 @@ This project provides a flexible and easy-to-use API testing framework. It utili
 
 It reads test data from CSV files and converts them to JSON for API requests. The framework performs assertions on the API responses based on the expected values provided in the CSV files, which allows for data-driven testing and easy test maintenance.
 
+# ** TestAppUtility Function Design Document
+# Overview
+The TestAppUtility function provides the core logic for performing API tests. This function uses data-driven testing methodology where the data is provided via CSV files. This function can test both GET and POST requests. It also supports different types of inputs, including random values, previous request data, and common validations (like isString and isNumber).
+
+# Components
+The function is comprised of several major components:
+
+CSV Reader: This component parses the CSV file and maps it to TestData objects for easier manipulation. It supports headers and values.
+
+Request Builder: This component builds the API request using the test data, where it assigns headers and the body. It supports both POST and GET requests.
+
+Response Handler: This component processes the API response by validating the status code and the values of specific fields as per the CSV file.
+
+Report Utility: This is an auxiliary component that logs all the steps and flushes the logs to an external HTML report file.
+
+Input/Output
+The function takes two arguments as input:
+
+url: the URL where the API requests will be sent.
+csvPath: the file path of the CSV file containing the test data.
+The function returns a boolean value which represents whether all the tests passed or not.
+
+# Dependencies
+The TestAppUtility function has the following dependencies:
+
+RestAssured: This is a powerful set of tools to test REST APIs. It's used to make API requests and handle responses.
+Jackson: This is a JSON processor in Java. It's used to serialize Java objects into JSON and vice versa.
+Apache Commons CSV: This library is used to read CSV files.
+ExtentReports: This is a reporting library which is used to log steps and generate an HTML report.
+regExCsvUtil: This utility class is used for common validations like checking whether a value is a number or a string.
+Future Improvements
+The design of the TestAppUtility function can be further improved by adding the following features:
+
+Support for other HTTP methods: Currently, only GET and POST methods are supported. The function can be extended to support other HTTP methods like PUT, DELETE, PATCH etc.
+Enhanced error handling: More specific exceptions can be used to handle various types of errors. This would make the function more robust and easier to debug.
+Better logging and reporting: Additional information can be logged and better formatting can be applied to the HTML report for better readability.
+
+
+
+
+Regenerate
+
+
 # Requirements
 
 1. Java Development Kit (JDK) - version 17.
