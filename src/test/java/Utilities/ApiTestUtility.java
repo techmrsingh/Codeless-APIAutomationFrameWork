@@ -68,8 +68,12 @@ public class ApiTestUtility {
             test = extent.createTest(testcasename);
             Map<String, Object> requestBody = new HashMap<>();
             for (String header : record.toMap().keySet()) {
+                String value = record.get(header);
+                if (value == null || value.isEmpty()) {
+                    continue;
+                }
                 if (header.startsWith("input_")) {
-                    String value = record.get(header);
+                    value = record.get(header);
                     if (value.startsWith("prev_")) {
                         String key = value.replace("prev_", "");
                         value = (String) previousRequestData.get(key);
